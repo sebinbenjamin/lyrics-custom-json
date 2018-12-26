@@ -1,17 +1,17 @@
-<ion-content padding margin>
-  <ion-grid padding margin>
+<ion-content padding-horizontal margin-horizontal>
+  <ion-grid padding-horizontal>
     <ion-row class="newRow">
       <ion-col col-8>
         <ion-item>
-          <ion-input [(ngModel)]="title" placeholder="Title"></ion-input>
+          <ion-input [(ngModel)]="title" (input)="generateJSON()" placeholder="Title"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-textarea placeholder="Enter Lyrics"></ion-textarea>
+          <ion-textarea placeholder="Enter Lyrics" [(ngModel)]="lyricsInput" (input)="generateJSON()"></ion-textarea>
         </ion-item>
       </ion-col>
       <ion-col col-4>
         <ion-item>
-          <ion-input placeholder="Author(s)"></ion-input>
+          <ion-input placeholder="Artist(s)" (input)="generateJSON()"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Category</ion-label>
@@ -54,14 +54,14 @@
       <ion-col col-6>
         <ion-item>
           <p>
-            JSON Output 
+            JSON Output
           </p>
           <button ion-button>Copy</button>
         </ion-item>
-        <ion-item no-lines>
-          <p>
-            actual op
-          </p>
+        <ion-item no-lines text-wrap>
+          <pre>
+            {{ contents| json}}
+          </pre>
         </ion-item>
       </ion-col>
       <ion-col col-6>
@@ -70,11 +70,11 @@
             Rendered Output
           </p>
         </ion-item>
-        <ion-item no-lines>
+        <ion-item no-lines style="user-select: text;">
           <ion-row align-items-center justify-content-center center>
             <h2 ion-text color="primary" class="songTitle">{{title}}</h2>
           </ion-row>
-          <ion-row align-items-center *ngFor="let line of lyrics">
+          <ion-row align-items-end *ngFor="let line of contents.lyrics">
             <ng-container *ngIf="line.type == 'line';else notLine">
               <p ion-text text-center text-wrap class="lyricsBody">
                 {{line.words}}
@@ -99,6 +99,11 @@
               </ng-container>
               <ng-container *ngIf="line.type == 'nextVerse'">
                 <br><br>
+                <p ion-text text-center text-wrap class="lyricsBody">
+                  {{line.words}}
+                </p>
+              </ng-container>
+              <ng-container *ngIf="line.type == 'line'">
                 <p ion-text text-center text-wrap class="lyricsBody">
                   {{line.words}}
                 </p>
