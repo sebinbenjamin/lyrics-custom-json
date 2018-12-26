@@ -3,7 +3,7 @@
     <ion-row class="newRow">
       <ion-col col-8>
         <ion-item>
-          <ion-input [(ngModel)]="title" (input)="generateJSON()" placeholder="Title"></ion-input>
+          <ion-input [(ngModel)]="title" (input)="generateJSON()" placeholder="Song title here"></ion-input>
         </ion-item>
         <ion-item>
           <ion-textarea placeholder="Enter Lyrics" [(ngModel)]="lyricsInput" (input)="generateJSON()"></ion-textarea>
@@ -11,40 +11,28 @@
       </ion-col>
       <ion-col col-4>
         <ion-item>
-          <ion-input placeholder="Artist(s)" (input)="generateJSON()"></ion-input>
+          <ion-input placeholder="Artist(s) names" [(ngModel)]="artist" (input)="generateJSON()"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Category</ion-label>
           <ion-select [(ngModel)]="category" multiple="true">
-            <ion-option>Bacon</ion-option>
-            <ion-option>Black Olives</ion-option>
-            <ion-option>Extra Cheese</ion-option>
-            <ion-option>Mushrooms</ion-option>
-            <ion-option>Pepperoni</ion-option>
-            <ion-option>Sausage</ion-option>
-            <ion-option>Sausage1</ion-option>
-            <ion-option>Sausage2</ion-option>
-            <ion-option>Sausage3</ion-option>
-            <ion-option>Sausage4</ion-option>
-            <ion-option>Sausage5</ion-option>
-            <ion-option>Sausage6</ion-option>
+            <ion-option value="action_songs">Action songs</ion-option>
+            <ion-option value="holy_mass">Holy Mass</ion-option>
+            <ion-option value="holy_spirit">Holy Spirit</ion-option>
+            <ion-option value="ice_breaker">Ice breaker</ion-option>
+            <ion-option value="joy">Joy</ion-option>
+            <ion-option value="love">Love</ion-option>
+            <ion-option value="praise">Praise</ion-option>
+            <ion-option value="thanks">Thanks</ion-option>
+            <ion-option value="other_songs">Other songs</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
           <ion-label>Program</ion-label>
           <ion-select [(ngModel)]="program" multiple="true">
-            <ion-option>Bacon</ion-option>
-            <ion-option>Black Olives</ion-option>
-            <ion-option>Extra Cheese</ion-option>
-            <ion-option>Mushrooms</ion-option>
-            <ion-option>Pepperoni</ion-option>
-            <ion-option>Sausage</ion-option>
-            <ion-option>Sausage1</ion-option>
-            <ion-option>Sausage2</ion-option>
-            <ion-option>Sausage3</ion-option>
-            <ion-option>Sausage4</ion-option>
-            <ion-option>Sausage5</ion-option>
-            <ion-option>Sausage6</ion-option>
+            <ion-option>kids</ion-option>
+            <ion-option>preteens</ion-option>
+            <ion-option>teens</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>

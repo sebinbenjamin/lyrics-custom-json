@@ -7,7 +7,9 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
   title: string;
-  author: string;
+  artist: string;
+  category: string[];
+  program: string[];
   lyricsInput: string;
   parserOutput: any[];
   contents: any;
@@ -20,8 +22,10 @@ export class HomePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LyricsPage');
     this.title = 'Song title here';
-    this.author = 'Sebin Benjamin';
+    this.artist = '';
     this.lyricsInput = '';
+    this.category = [];
+    this.program = [];
     this.contents = {
       lyrics: [{
         type: 'intro',
@@ -86,6 +90,22 @@ export class HomePage {
       }
 
     }
-    this.contents = { title: this.title, author: this.author, lyrics: [this.parserOutput] };
+    let categoryObj = {};
+    this.category.forEach(cat => {
+      categoryObj[cat] = true;
+    });
+    let programObj = {};
+    this.program.forEach(prog => {
+      programObj[prog] = true;
+    });
+
+    console.log('parserOutput', this.parserOutput);
+    this.contents = {
+      title: this.title,
+      artist: this.artist,
+      category: categoryObj,
+      program: programObj,
+      lyrics: this.parserOutput
+    };
   }
 }
