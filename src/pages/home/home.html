@@ -74,7 +74,7 @@
           <ion-row align-items-center justify-content-center center>
             <h2 ion-text color="primary" class="songTitle">{{title}}</h2>
           </ion-row>
-          <ion-row align-items-center *ngFor="let line of songData.lyrics">
+          <ion-row align-items-center *ngFor="let line of lyrics">
             <ng-container *ngIf="line.type == 'line';else notLine">
               <p ion-text text-center text-wrap class="lyricsBody">
                 {{line.words}}

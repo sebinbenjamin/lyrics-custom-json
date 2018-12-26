@@ -1,5 +1,7 @@
 {
   "name": "lyrics-custom-json",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
