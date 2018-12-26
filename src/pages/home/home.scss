@@ -1,0 +1,19 @@
+page-home {
+  textarea {
+    resize: vertical;
+    min-height: 15vh;
+  }
+  .newRow {}
+  .lyricsBody {
+    font-size: large;
+    line-height: 1.8em;
+  }
+  .lyricsMeta {
+    font-size: medium;
+    margin-top: 3vh;
+  }
+  .songTitle {
+    padding-top: 1em;
+    font-size: x-large;
+  }
+}

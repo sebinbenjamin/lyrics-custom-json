@@ -1,0 +1,112 @@
+<ion-content padding margin>
+  <ion-grid padding margin>
+    <ion-row class="newRow">
+      <ion-col col-8>
+        <ion-item>
+          <ion-input [(ngModel)]="title" placeholder="Title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-textarea placeholder="Enter Lyrics"></ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item>
+          <ion-input placeholder="Author(s)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Category</ion-label>
+          <ion-select [(ngModel)]="category" multiple="true">
+            <ion-option>Bacon</ion-option>
+            <ion-option>Black Olives</ion-option>
+            <ion-option>Extra Cheese</ion-option>
+            <ion-option>Mushrooms</ion-option>
+            <ion-option>Pepperoni</ion-option>
+            <ion-option>Sausage</ion-option>
+            <ion-option>Sausage1</ion-option>
+            <ion-option>Sausage2</ion-option>
+            <ion-option>Sausage3</ion-option>
+            <ion-option>Sausage4</ion-option>
+            <ion-option>Sausage5</ion-option>
+            <ion-option>Sausage6</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Program</ion-label>
+          <ion-select [(ngModel)]="program" multiple="true">
+            <ion-option>Bacon</ion-option>
+            <ion-option>Black Olives</ion-option>
+            <ion-option>Extra Cheese</ion-option>
+            <ion-option>Mushrooms</ion-option>
+            <ion-option>Pepperoni</ion-option>
+            <ion-option>Sausage</ion-option>
+            <ion-option>Sausage1</ion-option>
+            <ion-option>Sausage2</ion-option>
+            <ion-option>Sausage3</ion-option>
+            <ion-option>Sausage4</ion-option>
+            <ion-option>Sausage5</ion-option>
+            <ion-option>Sausage6</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <br><br>
+    <ion-row class="newRow">
+      <ion-col col-6>
+        <ion-item>
+          <p>
+            JSON Output 
+          </p>
+          <button ion-button>Copy</button>
+        </ion-item>
+        <ion-item no-lines>
+          <p>
+            actual op
+          </p>
+        </ion-item>
+      </ion-col>
+      <ion-col col-6>
+        <ion-item>
+          <p>
+            Rendered Output
+          </p>
+        </ion-item>
+        <ion-item no-lines>
+          <ion-row align-items-center justify-content-center center>
+            <h2 ion-text color="primary" class="songTitle">{{title}}</h2>
+          </ion-row>
+          <ion-row align-items-center *ngFor="let line of songData.lyrics">
+            <ng-container *ngIf="line.type == 'line';else notLine">
+              <p ion-text text-center text-wrap class="lyricsBody">
+                {{line.words}}
+              </p>
+            </ng-container>
+            <ng-template #notLine>
+              <ng-container *ngIf="line.type == 'intro'">
+                <i ion-text text-wrap color="primary" class="lyricsMeta">Intro</i>
+                <hr style="width:100%">
+                <hr>
+                <p ion-text text-center text-wrap class="lyricsBody">
+                  {{line.words}}
+                </p>
+              </ng-container>
+              <ng-container *ngIf="line.type == 'chorus'">
+                <i ion-text text-wrap color="primary" class="lyricsMeta">Chorus</i>
+                <hr style="width:100%">
+                <hr>
+                <p ion-text text-center text-wrap class="lyricsBody">
+                  {{line.words}}
+                </p>
+              </ng-container>
+              <ng-container *ngIf="line.type == 'nextVerse'">
+                <br><br>
+                <p ion-text text-center text-wrap class="lyricsBody">
+                  {{line.words}}
+                </p>
+              </ng-container>
+            </ng-template>
+          </ion-row>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
