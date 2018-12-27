@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
+import { DataServiceProvider } from '../../providers/data-service/data-service';
+
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'page-home',
@@ -14,23 +17,30 @@ export class HomePage {
 
   parserOutput: any[];
   contents: any;
-  copyColor: {
+  updateSongsColor: {
     background: string;
   };
-  constructor(public navCtrl: NavController) {
+  updateProgColor: {
+    background: string;
+  };
+  songID: string;
+  constructor(public navCtrl: NavController, private dataServiceProvider: DataServiceProvider, public alertCtrl: AlertController) {
     this.contents = {
       lyrics: []
     };
     this.parserOutput = [];
+    this.songID = '';
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LyricsPage');
     this.title = 'Song title here';
     this.artist = '';
+    this.songID = '';
     this.lyricsInput = '';
     this.category = [];
     this.program = [];
-    this.copyColor = { background: '' };
+    this.updateSongsColor = { background: '' };
+    this.updateProgColor = { background: '' };
     this.contents = {
       lyrics: [{
         type: 'intro',
@@ -146,7 +156,7 @@ export class HomePage {
       programObj[prog] = true;
     });
 
-    console.log('parserOutput', this.parserOutput);
+    // console.log('parserOutput', this.parserOutput);
     this.contents = {
       title: this.title,
       artist: this.artist,
@@ -155,20 +165,82 @@ export class HomePage {
       lyrics: this.parserOutput
     };
   }
-  copyJSON() {
-    //copies data to clipboard
-    var textField = document.createElement('textarea');
+  // copyJSON() {
+  //   //copies data to clipboard
+  //   var textField = document.createElement('textarea');
 
-    textField.innerText = JSON.stringify(this.contents);
-    document.body.appendChild(textField);
-    textField.select();
-    document.execCommand('copy');
-    textField.remove();
+  //   textField.innerText = JSON.stringify(this.contents);
+  //   document.body.appendChild(textField);
+  //   textField.select();
+  //   document.execCommand('copy');
+  //   textField.remove();
 
-    //changes color of copy button
-    this.copyColor.background = 'green';
-    setTimeout(() => {
-      this.copyColor.background = 'orange';
-    }, 1000);
+  //   //changes color of copy button
+  //   this.copyColor.background = 'green';
+  //   setTimeout(() => {
+  //     this.copyColor.background = 'orange';
+  //   }, 1000);
+  // }
+  updateSongs() {
+    console.log('updateSongs()');
+    this.updateSongsColor.background = 'orange';
+    this.dataServiceProvider.updateSong(this.contents)
+      .then(sucess => {
+        console.log('Sucess Adding Data', sucess);
+        let alert = this.alertCtrl.create({
+          title: 'Sucess',
+          message: 'Songs collection update sucess.' + 'Song ID: ' + sucess.id,
+          buttons: ['Ok']
+        });
+        alert.present();
+        this.songID = sucess.id;
+        this.updateSongsColor.background = 'green';
+      })
+      .catch(error => {
+        this.updateSongsColor.background = 'red';
+        console.log('Error Adding Data', error)
+        this.songID = '';
+      });;
+  }
+  updateProgramsCategories() {
+    console.log('updateProgramsCategories()');
+
+    let programsPromiseArray = [];
+    let categoriesPromiseArray = [];
+
+    this.category.forEach(cat => {
+      programsPromiseArray.push(this.dataServiceProvider.updateProgramsCategories('program', 'jykc18-kids',
+        {
+          'songs': firebase.firestore.FieldValue.arrayUnion({ 'songID': this.songID, 'title': this.title })
+        }))
+    });
+
+    this.program.forEach(prog => {
+      categoriesPromiseArray.push(this.dataServiceProvider.updateProgramsCategories('program', 'jykc18-youth',
+        {
+          'songs': firebase.firestore.FieldValue.arrayUnion({ 'songID': this.songID, 'title': this.title })
+        }))
+    });
+
+    let allPromisesArray = [];
+    allPromisesArray.push(Promise.all(programsPromiseArray));
+    allPromisesArray.push(Promise.all(categoriesPromiseArray));
+
+    this.updateProgColor.background = 'orange';
+    Promise.all(allPromisesArray)
+      .then(sucess => {
+        console.log('Sucess Adding Programs', sucess);
+        let alert = this.alertCtrl.create({
+          title: 'Sucess',
+          message: 'Programs collection update sucess.',
+          buttons: ['Ok']
+        });
+        alert.present();
+        this.updateProgColor.background = 'green';
+      })
+      .catch(error => {
+        this.updateProgColor.background = 'red';
+        console.log('Error adding programs data !!', error)
+      });;
   }
 }

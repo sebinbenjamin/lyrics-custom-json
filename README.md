@@ -14,3 +14,6 @@ Simple UI to make convert lyrics into custom JSON format
 No spaces/newline must be put unnecessarily.
 
 * New verses can be started by putting an extra newline after the previous verse line.
+
+#### Install issues
+Do `npm install rxjs@6 rxjs-compat@6 --save` to fix  `Error: Uncaught (in promise): TypeError: Object(...) is not a function` error

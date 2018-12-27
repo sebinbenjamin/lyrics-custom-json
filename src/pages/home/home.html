@@ -18,7 +18,6 @@
           <ion-select [(ngModel)]="category" multiple="true">
             <ion-option value="action_songs">Action songs</ion-option>
             <ion-option value="holy_mass">Holy Mass</ion-option>
-            <ion-option value="holy_spirit">Holy Spirit</ion-option>
             <ion-option value="ice_breaker">Ice breaker</ion-option>
             <ion-option value="joy">Joy</ion-option>
             <ion-option value="love">Love</ion-option>
@@ -30,11 +29,11 @@
         <ion-item>
           <ion-label>Program</ion-label>
           <ion-select [(ngModel)]="program" multiple="true">
-            <ion-option value="kids">Kids</ion-option>
-            <ion-option value="preteens">Pre-teens</ion-option>
-            <ion-option value="teens">Teens</ion-option>
-            <ion-option value="youth">Youth</ion-option>
-            <ion-option value="family">Family</ion-option>
+            <ion-option value="jykc18-kids">Kids</ion-option>
+            <ion-option value="jykc18-preteens">Pre-teens</ion-option>
+            <ion-option value="jykc18-teens">Teens</ion-option>
+            <ion-option value="jykc18-youth">Youth</ion-option>
+            <ion-option value="jykc18-family">Family</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -45,8 +44,11 @@
         <ion-item>
           <p>
             JSON Output
-            <button ion-button (click)="copyJSON()" default [ngStyle]="copyColor" icon-right>
-              Copy&nbsp;<ion-icon name="copy"></ion-icon>
+            <button ion-button (click)="updateSongs()" default [disabled]="lyricsInput == ''" [ngStyle]="updateSongsColor">
+              Update Songs&nbsp;
+            </button>
+            <button ion-button (click)="updateProgramsCategories()" [disabled]="songID == ''" default [ngStyle]="updateProgColor">
+              Update Programs/Categories&nbsp;
             </button>
           </p>
         </ion-item>
