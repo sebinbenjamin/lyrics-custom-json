@@ -8,11 +8,11 @@ export class DataServiceProvider {
     console.log('Hello DataServiceProvider Provider');
   }
   updateSong(songData): Promise<any> {
-    const songsCollection = this.db.collection('songs');
+    let songsCollection = this.db.collection('song');
     return songsCollection.add(songData);
   }
   updateProgramsCategories(catProg: string, name: string, songData): Promise<any> {
-    const songsCollection = this.db.collection(catProg);
-    return songsCollection.doc(name).update(songData);
+    let programCategory = this.db.collection(catProg);
+    return programCategory.doc(name).update(songData);
   }
 }

@@ -33,7 +33,7 @@ export class HomePage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LyricsPage');
-    this.title = 'Song title here';
+    this.title = '';
     this.artist = '';
     this.songID = '';
     this.lyricsInput = '';
@@ -182,6 +182,7 @@ export class HomePage {
   //   }, 1000);
   // }
   updateSongs() {
+    this.generateJSON();
     console.log('updateSongs()');
     this.updateSongsColor.background = 'orange';
     this.dataServiceProvider.updateSong(this.contents)
@@ -209,14 +210,14 @@ export class HomePage {
     let categoriesPromiseArray = [];
 
     this.category.forEach(cat => {
-      programsPromiseArray.push(this.dataServiceProvider.updateProgramsCategories('program', 'jykc18-kids',
+      programsPromiseArray.push(this.dataServiceProvider.updateProgramsCategories('category', cat,
         {
           'songs': firebase.firestore.FieldValue.arrayUnion({ 'songID': this.songID, 'title': this.title })
         }))
     });
 
     this.program.forEach(prog => {
-      categoriesPromiseArray.push(this.dataServiceProvider.updateProgramsCategories('program', 'jykc18-youth',
+      categoriesPromiseArray.push(this.dataServiceProvider.updateProgramsCategories('program', prog,
         {
           'songs': firebase.firestore.FieldValue.arrayUnion({ 'songID': this.songID, 'title': this.title })
         }))
