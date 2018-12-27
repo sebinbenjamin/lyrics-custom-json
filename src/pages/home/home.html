@@ -30,9 +30,11 @@
         <ion-item>
           <ion-label>Program</ion-label>
           <ion-select [(ngModel)]="program" multiple="true">
-            <ion-option>kids</ion-option>
-            <ion-option>preteens</ion-option>
-            <ion-option>teens</ion-option>
+            <ion-option value="kids">Kids</ion-option>
+            <ion-option value="preteens">Pre-teens</ion-option>
+            <ion-option value="teens">Teens</ion-option>
+            <ion-option value="youth">Youth</ion-option>
+            <ion-option value="family">Family</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -43,8 +45,10 @@
         <ion-item>
           <p>
             JSON Output
+            <button ion-button (click)="copyJSON()" default [ngStyle]="copyColor" icon-right>
+              Copy&nbsp;<ion-icon name="copy"></ion-icon>
+            </button>
           </p>
-          <button ion-button>Copy</button>
         </ion-item>
         <ion-item no-lines text-wrap>
           <pre>
@@ -71,6 +75,22 @@
             <ng-template #notLine>
               <ng-container *ngIf="line.type == 'intro'">
                 <i ion-text text-wrap color="primary" class="lyricsMeta">Intro</i>
+                <hr style="width:100%">
+                <hr>
+                <p ion-text text-center text-wrap class="lyricsBody">
+                  {{line.words}}
+                </p>
+              </ng-container>
+              <ng-container *ngIf="line.type == 'rap'">
+                <i ion-text text-wrap color="primary" class="lyricsMeta">Rap</i>
+                <hr style="width:100%">
+                <hr>
+                <p ion-text text-center text-wrap class="lyricsBody">
+                  {{line.words}}
+                </p>
+              </ng-container>
+              <ng-container *ngIf="line.type == 'bridge'">
+                <i ion-text text-wrap color="primary" class="lyricsMeta">Bridge</i>
                 <hr style="width:100%">
                 <hr>
                 <p ion-text text-center text-wrap class="lyricsBody">
