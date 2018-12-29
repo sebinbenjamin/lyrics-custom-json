@@ -89,6 +89,16 @@ export class HomePage {
           if (i < lines.length) i++;
           continue;
         }
+        else if (lines[i].toUpperCase().startsWith('[PRE-CHORUS]') && lines[i + 1] != undefined) {
+          this.parserOutput.push(
+            {
+              type: 'pre-chorus',
+              words: lines[i + 1].trim()
+            }
+          );
+          if (i < lines.length) i++;
+          continue;
+        }
         else if (lines[i].toUpperCase().startsWith('[CHORUS]') && lines[i + 1] != undefined) {
           this.parserOutput.push(
             {
@@ -132,6 +142,7 @@ export class HomePage {
       else if (lines[i] == '' && lines[i + 1] != undefined &&
         !lines[i + 1].toUpperCase().startsWith('[INTRO]') &&
         !lines[i + 1].toUpperCase().startsWith('[CHORUS]') &&
+        !lines[i + 1].toUpperCase().startsWith('[PRE-CHORUS]') &&
         !lines[i + 1].toUpperCase().startsWith('[RAP]') &&
         !lines[i + 1].toUpperCase().startsWith('[BRIDGE]')) {
         this.parserOutput.push(

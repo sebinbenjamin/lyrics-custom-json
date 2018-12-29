@@ -99,6 +99,14 @@
                   {{line.words}}
                 </p>
               </ng-container>
+              <ng-container *ngIf="line.type == 'pre-chorus'">
+                <i ion-text text-wrap color="primary" class="lyricsMeta">Pre-Chorus</i>
+                <hr style="width:100%">
+                <hr>
+                <p ion-text text-center text-wrap class="lyricsBody">
+                  {{line.words}}
+                </p>
+              </ng-container>
               <ng-container *ngIf="line.type == 'chorus'">
                 <i ion-text text-wrap color="primary" class="lyricsMeta">Chorus</i>
                 <hr style="width:100%">

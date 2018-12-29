@@ -4,6 +4,7 @@ Simple UI to make convert lyrics into custom JSON format
 ### Guidelines for the format
 * 4 markers are presently available. They are
   * [Intro]
+  * [Pre-Chorus]
   * [Chorus]
   * [Rap]
   * [Bridge] 
